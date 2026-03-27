@@ -22,10 +22,13 @@
   --weiss:#ffffff;
   --r:12px;
   --r-sm:8px;
+  --orange-hell:#fff8e1;
+  --orange-rand:#fcd34d;
+  --orange-text:#78350f;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--hg);color:var(--text);min-height:100vh;line-height:1.5;}
 
-/* PASSWORT — neutraler grauer Hintergrund, Box mit grünem Akzent oben */
+/* PASSWORT */
 #pw-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#3a3a3a;}
 .pw-box{background:var(--weiss);border-radius:var(--r);padding:2.5rem 2rem;width:100%;max-width:380px;text-align:center;border-top:4px solid var(--gruen);}
 .pw-logo{font-size:32px;margin-bottom:0.75rem;}
@@ -42,14 +45,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 /* APP */
 #app{display:none;}
 
-/* KOPFZEILE — grün, schlicht */
+/* KOPFZEILE */
 .kopfzeile{background:var(--gruen);color:white;padding:1.25rem 1.5rem;}
 .kopfzeile h1{font-size:19px;font-weight:700;line-height:1.2;}
 .kopfzeile p{font-size:12px;opacity:0.7;margin-top:3px;}
 
-/* NAV — Lila als Akzent für aktiven Reiter */
+/* NAV */
 .nav{background:var(--weiss);border-bottom:1px solid var(--rand-hell);display:flex;overflow-x:auto;}
-.nav-btn{flex-shrink:0;padding:13px 20px;background:none;border:none;border-bottom:3px solid transparent;font-size:14px;color:var(--text-grau);cursor:pointer;white-space:nowrap;font-weight:500;}
+.nav-btn{flex-shrink:0;padding:13px 18px;background:none;border:none;border-bottom:3px solid transparent;font-size:14px;color:var(--text-grau);cursor:pointer;white-space:nowrap;font-weight:500;}
 .nav-btn.aktiv{color:var(--lila);border-bottom-color:var(--lila);}
 .nav-btn:hover:not(.aktiv){color:var(--lila);}
 
@@ -58,16 +61,35 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .seite.sichtbar{display:block;}
 .intro-text{font-size:14px;color:var(--text-grau);margin-bottom:1rem;line-height:1.6;}
 
-/* EVENT-KARTE — grüner Rahmen bei Auswahl */
-.event-karte{background:var(--weiss);border:1.5px solid var(--rand-hell);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:0.75rem;cursor:pointer;transition:border-color 0.15s;}
+/* EVENT-KARTE mit aufklappbaren Details */
+.event-karte{background:var(--weiss);border:1.5px solid var(--rand-hell);border-radius:var(--r);margin-bottom:0.75rem;overflow:hidden;transition:border-color 0.15s;}
 .event-karte:hover{border-color:var(--gruen-rand);}
-.event-karte.ausgewaehlt{border:2px solid var(--gruen);background:var(--gruen-hell);}
+.event-karte.offen{border-color:var(--gruen);}
+.event-kopf{padding:1.1rem 1.25rem;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.event-kopf:hover{background:#fafcfa;}
+.event-karte.offen .event-kopf{background:var(--gruen-hell);}
+.event-links{flex:1;}
 .event-titel{font-size:15px;font-weight:700;margin-bottom:4px;color:var(--text);}
 .event-info{font-size:13px;color:var(--text-grau);line-height:1.6;}
-.status{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;margin-top:8px;background:var(--gruen-hell);color:var(--gruen);border:1px solid var(--gruen-rand);}
+.event-rechts{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+.status{display:inline-block;font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;background:var(--gruen-hell);color:var(--gruen);border:1px solid var(--gruen-rand);}
+.status-bald{background:var(--orange-hell);color:var(--orange-text);border-color:var(--orange-rand);}
+.toggle-pfeil{font-size:11px;color:var(--text-hint);}
 
-/* FORMULAR — Kopf grün, Felder neutral */
-.form-karte{background:var(--weiss);border:1px solid var(--rand-hell);border-radius:var(--r);overflow:hidden;margin-bottom:1rem;}
+/* DETAIL-BEREICH */
+.event-detail{display:none;border-top:1px solid var(--rand-hell);padding:1.1rem 1.25rem;}
+.event-karte.offen .event-detail{display:block;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin-bottom:1rem;}
+@media(max-width:480px){.detail-grid{grid-template-columns:1fr;}}
+.detail-zeile .dl{font-size:11px;color:var(--text-hint);margin-bottom:2px;}
+.detail-zeile .dv{font-size:13px;color:var(--text);font-weight:500;}
+.detail-zeile .dv.warnung{color:var(--orange-text);}
+.frist-hinweis{background:var(--orange-hell);border:1px solid var(--orange-rand);border-radius:var(--r-sm);padding:8px 12px;font-size:12px;color:var(--orange-text);margin-bottom:1rem;}
+.anmeldung-gesperrt{background:var(--rand-hell);border-radius:var(--r-sm);padding:1rem;text-align:center;font-size:13px;color:var(--text-grau);}
+.bald-hinweis{font-size:13px;color:var(--text-grau);padding:4px 0;}
+
+/* FORMULAR */
+.form-karte{background:var(--weiss);border:1px solid var(--rand-hell);border-radius:var(--r);overflow:hidden;margin-top:0.75rem;}
 .form-kopf{background:var(--gruen);color:white;padding:1rem 1.25rem;}
 .form-kopf h2{font-size:15px;font-weight:700;}
 .form-kopf p{font-size:13px;opacity:0.82;margin-top:3px;}
@@ -82,20 +104,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .feld textarea{min-height:80px;resize:vertical;}
 .pflicht{color:#c62828;}
 .hinweis{font-size:12px;color:var(--text-hint);margin-top:4px;}
-
-/* BUTTON — lila als Kontrast zu grünem Formular-Kopf */
 .absenden-btn{width:100%;padding:13px;background:var(--lila);color:white;border:none;border-radius:var(--r-sm);font-size:15px;font-weight:600;cursor:pointer;margin-top:0.5rem;transition:opacity 0.15s;}
 .absenden-btn:hover{opacity:0.88;}
 .absenden-btn:disabled{opacity:0.4;cursor:default;}
-
 .erfolg-box{background:var(--gruen-hell);border:1px solid var(--gruen-rand);border-radius:var(--r-sm);padding:1rem;text-align:center;font-size:14px;color:var(--gruen);margin-top:1rem;display:none;line-height:1.6;font-weight:500;}
 .fehler-box{background:#fdecea;border:1px solid #f5c6c6;border-radius:var(--r-sm);padding:1rem;text-align:center;font-size:14px;color:#c62828;margin-top:1rem;display:none;}
 
-/* KEIN EVENT */
-.kein-event{text-align:center;padding:2rem 1rem;color:var(--text-hint);font-size:14px;background:var(--weiss);border:1px dashed var(--rand-hell);border-radius:var(--r);}
-.kein-event strong{display:block;font-size:14px;color:var(--text-grau);margin-bottom:4px;}
+/* TERMINÜBERSICHT */
+.termine-karte{background:var(--weiss);border:1px solid var(--rand-hell);border-radius:var(--r);overflow:hidden;margin-bottom:0.75rem;}
+.termin-zeile{display:flex;align-items:center;gap:14px;padding:0.85rem 1.25rem;border-bottom:1px solid var(--rand-hell);}
+.termin-zeile:last-child{border-bottom:none;}
+.termin-datum{font-size:13px;font-weight:600;color:var(--text);min-width:85px;flex-shrink:0;}
+.termin-name{flex:1;}
+.termin-name strong{display:block;font-size:13px;color:var(--text);}
+.termin-name span{font-size:12px;color:var(--text-hint);margin-top:1px;display:block;}
+.termine-hinweis{font-size:12px;color:var(--text-hint);text-align:center;margin-top:0.5rem;}
 
-/* INFO — Lila für Überschriften, grüne Links */
+/* ABMELDUNG */
+.abmeld-karte{background:var(--weiss);border:1px solid var(--rand-hell);border-radius:var(--r);padding:1.25rem;margin-bottom:0.75rem;}
+.abmeld-karte h3{font-size:14px;font-weight:700;color:var(--lila);margin-bottom:8px;padding-bottom:6px;border-bottom:1.5px solid var(--lila-hell);}
+.abmeld-karte p{font-size:13px;color:var(--text-grau);line-height:1.6;margin-bottom:1rem;}
+.abmeld-btn{width:100%;padding:13px;background:var(--lila);color:white;border:none;border-radius:var(--r-sm);font-size:15px;font-weight:600;cursor:pointer;margin-top:0.5rem;transition:opacity 0.15s;}
+.abmeld-btn:hover{opacity:0.88;}
+.abmeld-btn:disabled{opacity:0.4;cursor:default;}
+.abmeld-ok{background:var(--orange-hell);border:1px solid var(--orange-rand);border-radius:var(--r-sm);padding:1rem;text-align:center;font-size:13px;color:var(--orange-text);margin-top:1rem;display:none;font-weight:500;}
+
+/* INFO */
 .info-karte{background:var(--weiss);border:1px solid var(--rand-hell);border-radius:var(--r);padding:1.25rem;margin-bottom:0.75rem;}
 .info-karte h3{font-size:14px;font-weight:700;color:var(--lila);margin-bottom:10px;padding-bottom:6px;border-bottom:1.5px solid var(--lila-hell);}
 .info-karte p{font-size:13px;color:var(--text-grau);line-height:1.7;margin-bottom:4px;}
@@ -123,11 +157,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 /* ── PASSWORT HIER ÄNDERN ── */
 var PW = 'Mitglieder2026';
 
+/* ── VERANSTALTUNGEN ──────────────────────────────────────────────────────
+   Felder: id, titel, datum, uhrzeit, ort, treffpunkt, kosten, frist, fristText, status
+   status: 'offen' | 'bald' | 'geschlossen'
+   frist: 'YYYY-MM-DD' – Anmeldeschluss (leer lassen wenn keiner)
+──────────────────────────────────────────────────────────────────────── */
+var EVENTS = [
+  {
+    id: 'e1',
+    titel: 'Sommerfest 2026',
+    datum: '25.07.2026',
+    uhrzeit: '14:00 – 18:00 Uhr',
+    ort: 'Hochheim am Main',
+    treffpunkt: 'Stadtpark Hochheim, Eingang Nord',
+    kosten: 'Kostenfrei für Mitglieder',
+    frist: '2026-07-11',
+    fristText: '11. Juli 2026',
+    status: 'offen'
+  },
+  {
+    id: 'e2',
+    titel: 'Kulturveranstaltung Herbst 2026',
+    datum: '17.10.2026',
+    uhrzeit: '10:00 – 16:00 Uhr',
+    ort: 'Freiburg im Breisgau',
+    treffpunkt: 'Museum für Stadtgeschichte',
+    kosten: '',
+    frist: '',
+    fristText: '',
+    status: 'bald'
+  },
+  {
+    id: 'e3',
+    titel: 'Weihnachtsfeier 2026',
+    datum: '05.12.2026',
+    uhrzeit: '',
+    ort: 'Karlsruhe',
+    treffpunkt: '',
+    kosten: '',
+    frist: '',
+    fristText: '',
+    status: 'bald'
+  }
+];
+
 function checkPw() {
   var eingabe = document.getElementById('pw-eingabe').value;
   if (eingabe === PW) {
     document.getElementById('pw-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
+    baueEvents();
   } else {
     document.getElementById('pw-fehler').style.display = 'block';
     document.getElementById('pw-eingabe').value = '';
@@ -136,59 +215,150 @@ function checkPw() {
 }
 
 function zeigeSeite(id) {
-  document.querySelectorAll('.seite').forEach(function(s) {
-    s.classList.remove('sichtbar');
-  });
+  document.querySelectorAll('.seite').forEach(function(s){ s.classList.remove('sichtbar'); });
   document.getElementById(id).classList.add('sichtbar');
-  document.querySelectorAll('.nav-btn').forEach(function(b, i) {
-    b.classList.toggle('aktiv', ['events','info'][i] === id);
+  document.querySelectorAll('.nav-btn').forEach(function(b, i){
+    b.classList.toggle('aktiv', ['events','termine','abmeldung','info'][i] === id);
   });
   window.scrollTo(0, 0);
 }
 
-function waehleEvent(karte, titel, datum, ort) {
-  document.querySelectorAll('.event-karte').forEach(function(k) {
-    k.classList.remove('ausgewaehlt');
-  });
-  karte.classList.add('ausgewaehlt');
-  document.getElementById('form-titel').textContent = titel;
-  document.getElementById('form-datum-ort').textContent = datum + ' \u00b7 ' + ort;
-  document.getElementById('feld-event').value = titel;
-  document.getElementById('feld-betreff').value = 'Neue Anmeldung: ' + titel;
-  document.getElementById('kein-event-hinweis').style.display = 'none';
-  document.getElementById('formular-bereich').style.display = 'block';
-  document.getElementById('anmelde-formular').reset();
-  document.getElementById('feld-event').value = titel;
-  document.getElementById('feld-betreff').value = 'Neue Anmeldung: ' + titel;
-  document.getElementById('erfolg-box').style.display = 'none';
-  document.getElementById('fehler-box').style.display = 'none';
-  var btn = document.getElementById('absenden-btn');
-  btn.disabled = false;
-  btn.textContent = 'Jetzt anmelden';
-  document.getElementById('anmeldung-bereich').scrollIntoView({behavior:'smooth'});
+function toggleDetail(id) {
+  var karte = document.getElementById(id);
+  var istOffen = karte.classList.contains('offen');
+  document.querySelectorAll('.event-karte').forEach(function(k){ k.classList.remove('offen'); });
+  if (!istOffen) { karte.classList.add('offen'); }
 }
 
-function sendeFormular(e) {
+function tagesBis(datumStr) {
+  if (!datumStr) return null;
+  var heute = new Date(); heute.setHours(0,0,0,0);
+  var ziel = new Date(datumStr); ziel.setHours(0,0,0,0);
+  return Math.ceil((ziel - heute) / 86400000);
+}
+
+function baueEvents() {
+  var container = document.getElementById('events-liste');
+  container.innerHTML = '';
+  EVENTS.forEach(function(ev) {
+    var tage = tagesBis(ev.frist);
+    var fristAbgelaufen = tage !== null && tage < 0;
+    var fristBald = tage !== null && tage >= 0 && tage <= 14;
+    var karte = document.createElement('div');
+    karte.className = 'event-karte';
+    karte.id = ev.id;
+
+    var statusHtml = ev.status === 'offen'
+      ? '<span class="status">Anmeldung offen</span>'
+      : ev.status === 'bald'
+      ? '<span class="status status-bald">Bald buchbar</span>'
+      : '<span class="status" style="background:#fdecea;color:#b91c1c;border-color:#fca5a5;">Anmeldeschluss vorbei</span>';
+
+    var detailGrid = '';
+    if (ev.uhrzeit) detailGrid += '<div class="detail-zeile"><div class="dl">Uhrzeit</div><div class="dv">' + ev.uhrzeit + '</div></div>';
+    if (ev.treffpunkt) detailGrid += '<div class="detail-zeile"><div class="dl">Treffpunkt</div><div class="dv">' + ev.treffpunkt + '</div></div>';
+    if (ev.kosten) detailGrid += '<div class="detail-zeile"><div class="dl">Kosten</div><div class="dv">' + ev.kosten + '</div></div>';
+    if (ev.fristText) detailGrid += '<div class="detail-zeile"><div class="dl">Anmeldeschluss</div><div class="dv' + (fristBald || fristAbgelaufen ? ' warnung' : '') + '">' + ev.fristText + '</div></div>';
+
+    var fristWarnHtml = '';
+    if (fristBald && !fristAbgelaufen) {
+      fristWarnHtml = '<div class="frist-hinweis">Anmeldeschluss am ' + ev.fristText + ' – noch ' + tage + ' Tag' + (tage === 1 ? '' : 'e') + '</div>';
+    }
+
+    var anmeldungHtml = '';
+    if (ev.status === 'offen' && !fristAbgelaufen) {
+      anmeldungHtml = fristWarnHtml + '<div class="form-karte">'
+        + '<div class="form-kopf"><h2>Anmeldung: ' + ev.titel + '</h2><p>' + ev.datum + ' &middot; ' + ev.ort + '</p></div>'
+        + '<div class="form-body">'
+        + '<form id="form-' + ev.id + '" onsubmit="sendeFormular(event,\'' + ev.id + '\')">'
+        + '<input type="hidden" name="access_key" value="354c2f87-15f8-4af1-b81d-fa073034ec30">'
+        + '<input type="hidden" name="subject" value="Neue Anmeldung: ' + ev.titel + '">'
+        + '<input type="hidden" name="Veranstaltung" value="' + ev.titel + ' | ' + ev.datum + '">'
+        + '<input type="text" name="_gotcha" style="display:none">'
+        + '<div class="feld"><label>Dein Name <span class="pflicht">*</span></label><input type="text" name="Name" placeholder="Vor- und Nachname" required></div>'
+        + '<div class="feld"><label>E-Mail-Adresse <span class="pflicht">*</span></label><input type="email" name="E-Mail" placeholder="deine@email.de" required></div>'
+        + '<div class="feld"><label>Anzahl der Teilnehmenden (inkl. dir) <span class="pflicht">*</span></label>'
+        + '<select name="Anzahl Teilnehmende" required>'
+        + '<option value="" disabled selected>Bitte auswählen</option>'
+        + [1,2,3,4,5,6,7,8,9,10].map(function(n){ return '<option value="' + n + '">' + n + ' Person' + (n > 1 ? 'en' : '') + '</option>'; }).join('')
+        + '</select></div>'
+        + '<div class="feld"><label>Namen der weiteren Teilnehmenden</label><input type="text" name="Weitere Teilnehmende" placeholder="z.B. Erika Mustermann, Hans Mustermann"><div class="hinweis">Bitte alle weiteren Teilnehmenden namentlich nennen.</div></div>'
+        + '<div class="feld"><label>Besondere Bedürfnisse und Hinweise</label><textarea name="Besondere Beduerfnisse und Hinweise" placeholder="z.B. Barrierefreiheit, Verpflegungswünsche, Allergien, Fragen ..."></textarea></div>'
+        + '<button type="submit" class="absenden-btn" id="btn-' + ev.id + '">Jetzt anmelden</button>'
+        + '</form>'
+        + '<div class="erfolg-box" id="ok-' + ev.id + '">Vielen Dank! Deine Anmeldung ist eingegangen.<br><span style="font-size:13px;font-weight:400;opacity:0.85;">Du kannst dieses Fenster jetzt schliessen.</span></div>'
+        + '<div class="fehler-box" id="err-' + ev.id + '">Es ist ein Fehler aufgetreten. Bitte versuche es erneut oder wende dich direkt an den Vorstand.</div>'
+        + '</div></div>';
+    } else if (ev.status === 'bald') {
+      anmeldungHtml = '<p class="bald-hinweis">Die Anmeldung ist noch nicht geöffnet. Schau bald wieder rein.</p>';
+    } else if (fristAbgelaufen) {
+      anmeldungHtml = '<div class="anmeldung-gesperrt">Der Anmeldeschluss für diese Veranstaltung ist abgelaufen.</div>';
+    }
+
+    karte.innerHTML = '<div class="event-kopf" onclick="toggleDetail(\'' + ev.id + '\')">'
+      + '<div class="event-links">'
+      + '<div class="event-titel">' + ev.titel + '</div>'
+      + '<div class="event-info">Datum: ' + ev.datum + '<br>Ort: ' + ev.ort + '</div>'
+      + '</div>'
+      + '<div class="event-rechts">' + statusHtml + '<span class="toggle-pfeil">&#9660;</span></div>'
+      + '</div>'
+      + '<div class="event-detail">'
+      + (detailGrid ? '<div class="detail-grid">' + detailGrid + '</div>' : '')
+      + anmeldungHtml
+      + '</div>';
+
+    container.appendChild(karte);
+  });
+}
+
+function sendeFormular(e, evId) {
   e.preventDefault();
-  var btn = document.getElementById('absenden-btn');
+  var btn = document.getElementById('btn-' + evId);
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>Wird gesendet ...';
-  document.getElementById('erfolg-box').style.display = 'none';
-  document.getElementById('fehler-box').style.display = 'none';
+  document.getElementById('ok-' + evId).style.display = 'none';
+  document.getElementById('err-' + evId).style.display = 'none';
+  var form = document.getElementById('form-' + evId);
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',
-    body: new FormData(document.getElementById('anmelde-formular')),
+    body: new FormData(form),
     headers: { 'Accept': 'application/json' }
   })
   .then(function(res) {
     if (res.ok) {
-      document.getElementById('erfolg-box').style.display = 'block';
+      document.getElementById('ok-' + evId).style.display = 'block';
       btn.textContent = 'Anmeldung eingegangen';
-      document.getElementById('anmelde-formular').reset();
+      form.reset();
     } else { throw new Error(); }
   })
   .catch(function() {
-    document.getElementById('fehler-box').style.display = 'block';
+    document.getElementById('err-' + evId).style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Nochmal versuchen';
+  });
+}
+
+function sendeAbmeldung(e) {
+  e.preventDefault();
+  var btn = document.getElementById('abmeld-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Wird gesendet ...';
+  document.getElementById('abmeld-ok').style.display = 'none';
+  document.getElementById('abmeld-err').style.display = 'none';
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: new FormData(document.getElementById('abmeld-formular')),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(res) {
+    if (res.ok) {
+      document.getElementById('abmeld-ok').style.display = 'block';
+      btn.textContent = 'Abmeldung gesendet';
+      document.getElementById('abmeld-formular').reset();
+    } else { throw new Error(); }
+  })
+  .catch(function() {
+    document.getElementById('abmeld-err').style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Nochmal versuchen';
   });
@@ -219,96 +389,81 @@ function sendeFormular(e) {
 
   <div class="nav">
     <button class="nav-btn aktiv" onclick="zeigeSeite('events')">Veranstaltungen</button>
+    <button class="nav-btn" onclick="zeigeSeite('termine')">Alle Termine</button>
+    <button class="nav-btn" onclick="zeigeSeite('abmeldung')">Abmelden</button>
     <button class="nav-btn" onclick="zeigeSeite('info')">Kontakt &amp; Info</button>
   </div>
 
   <!-- VERANSTALTUNGEN -->
   <div id="events" class="seite sichtbar">
-    <p class="intro-text">Klicke auf eine Veranstaltung, um dich anzumelden.</p>
+    <p class="intro-text">Klicke auf eine Veranstaltung für Details und Anmeldung.</p>
+    <div id="events-liste"></div>
+  </div>
 
-    <div class="event-karte" onclick="waehleEvent(this,'Sommerfest 2026','25.07.2026','Hochheim am Main')">
-      <div class="event-titel">Sommerfest 2026</div>
-      <div class="event-info">
-        Datum: 25.07.2026<br>
-        Ort: Hochheim am Main
-      </div>
-      <span class="status">Anmeldung offen</span>
-    </div>
-
-    <div id="anmeldung-bereich" style="margin-top:1.5rem;">
-      <div id="kein-event-hinweis" class="kein-event">
-        <strong>Noch keine Veranstaltung ausgewählt</strong>
-        Klicke oben auf eine Veranstaltung, um das Anmeldeformular zu öffnen.
-      </div>
-
-      <div id="formular-bereich" style="display:none;">
-        <div class="form-karte">
-          <div class="form-kopf">
-            <h2 id="form-titel">–</h2>
-            <p id="form-datum-ort">–</p>
-          </div>
-          <div class="form-body">
-            <form id="anmelde-formular" onsubmit="sendeFormular(event)">
-              <input type="hidden" name="access_key" value="354c2f87-15f8-4af1-b81d-fa073034ec30">
-              <input type="hidden" name="subject" id="feld-betreff" value="Neue Anmeldung">
-              <input type="hidden" name="Veranstaltung" id="feld-event">
-              <input type="text" name="_gotcha" style="display:none">
-
-              <div class="feld">
-                <label for="f-name">Dein Name <span class="pflicht">*</span></label>
-                <input type="text" id="f-name" name="Name" placeholder="Vor- und Nachname" required>
-              </div>
-
-              <div class="feld">
-                <label for="f-email">E-Mail-Adresse <span class="pflicht">*</span></label>
-                <input type="email" id="f-email" name="E-Mail" placeholder="deine@email.de" required>
-              </div>
-
-              <div class="feld">
-                <label for="f-anzahl">Anzahl der Teilnehmenden (inkl. dir) <span class="pflicht">*</span></label>
-                <select id="f-anzahl" name="Anzahl Teilnehmende" required>
-                  <option value="" disabled selected>Bitte auswählen</option>
-                  <option value="1">1 Person</option>
-                  <option value="2">2 Personen</option>
-                  <option value="3">3 Personen</option>
-                  <option value="4">4 Personen</option>
-                  <option value="5">5 Personen</option>
-                  <option value="6">6 Personen</option>
-                  <option value="7">7 Personen</option>
-                  <option value="8">8 Personen</option>
-                  <option value="9">9 Personen</option>
-                  <option value="10">10 Personen</option>
-                </select>
-              </div>
-
-              <div class="feld">
-                <label for="f-begleitung">Namen der weiteren Teilnehmenden</label>
-                <input type="text" id="f-begleitung" name="Weitere Teilnehmende"
-                       placeholder="z.B. Erika Mustermann, Hans Mustermann">
-                <div class="hinweis">Bitte alle weiteren Teilnehmenden namentlich nennen.</div>
-              </div>
-
-              <div class="feld">
-                <label for="f-beduerfnisse">Besondere Bedürfnisse und Hinweise</label>
-                <textarea id="f-beduerfnisse" name="Besondere Beduerfnisse und Hinweise"
-                          placeholder="z.B. Barrierefreiheit, Verpflegungswünsche, Allergien, Fragen ..."></textarea>
-              </div>
-
-              <button type="submit" class="absenden-btn" id="absenden-btn">
-                Jetzt anmelden
-              </button>
-            </form>
-
-            <div class="erfolg-box" id="erfolg-box">
-              Vielen Dank! Deine Anmeldung ist eingegangen.<br>
-              <span style="font-size:13px;font-weight:400;opacity:0.85;">Du kannst dieses Fenster jetzt schließen.</span>
-            </div>
-            <div class="fehler-box" id="fehler-box">
-              Es ist ein Fehler aufgetreten. Bitte versuche es erneut oder wende dich direkt an den Vorstand.
-            </div>
-          </div>
+  <!-- ALLE TERMINE -->
+  <div id="termine" class="seite">
+    <p class="intro-text">Alle bekannten Termine des Landesverbands Südwest im Überblick.</p>
+    <div class="termine-karte">
+      <div class="termin-zeile">
+        <div class="termin-datum">25.07.2026</div>
+        <div class="termin-name">
+          <strong>Sommerfest 2026</strong>
+          <span>Hochheim am Main &middot; 14:00 Uhr</span>
         </div>
       </div>
+      <div class="termin-zeile">
+        <div class="termin-datum">17.10.2026</div>
+        <div class="termin-name">
+          <strong>Kulturveranstaltung Herbst 2026</strong>
+          <span>Freiburg im Breisgau &middot; 10:00 Uhr</span>
+        </div>
+      </div>
+      <div class="termin-zeile">
+        <div class="termin-datum">05.12.2026</div>
+        <div class="termin-name">
+          <strong>Weihnachtsfeier 2026</strong>
+          <span>Karlsruhe &middot; Details folgen</span>
+        </div>
+      </div>
+    </div>
+    <p class="termine-hinweis">Weitere Termine werden laufend ergänzt.</p>
+  </div>
+
+  <!-- ABMELDUNG -->
+  <div id="abmeldung" class="seite">
+    <p class="intro-text">Du möchtest deine Anmeldung zurückziehen? Fülle das Formular aus — der Vorstand wird deine Abmeldung bestätigen.</p>
+    <div class="abmeld-karte">
+      <h3>Anmeldung zurückziehen</h3>
+      <p>Bitte gib die Veranstaltung und die E-Mail-Adresse an, mit der du dich angemeldet hast.</p>
+      <form id="abmeld-formular" onsubmit="sendeAbmeldung(event)">
+        <input type="hidden" name="access_key" value="354c2f87-15f8-4af1-b81d-fa073034ec30">
+        <input type="hidden" name="subject" value="Abmeldung von Veranstaltung">
+        <input type="text" name="_gotcha" style="display:none">
+        <div class="feld">
+          <label for="ab-event">Veranstaltung <span class="pflicht">*</span></label>
+          <select id="ab-event" name="Veranstaltung" required>
+            <option value="" disabled selected>Bitte auswählen</option>
+            <option>Sommerfest 2026 – 25.07.2026</option>
+            <option>Kulturveranstaltung Herbst 2026 – 17.10.2026</option>
+            <option>Weihnachtsfeier 2026 – 05.12.2026</option>
+          </select>
+        </div>
+        <div class="feld">
+          <label for="ab-name">Dein Name <span class="pflicht">*</span></label>
+          <input type="text" id="ab-name" name="Name" placeholder="Vor- und Nachname" required>
+        </div>
+        <div class="feld">
+          <label for="ab-email">E-Mail-Adresse <span class="pflicht">*</span></label>
+          <input type="email" id="ab-email" name="E-Mail" placeholder="deine@email.de" required>
+        </div>
+        <div class="feld">
+          <label for="ab-hinweis">Hinweis (optional)</label>
+          <input type="text" id="ab-hinweis" name="Hinweis" placeholder="z.B. Grund der Abmeldung">
+        </div>
+        <button type="submit" class="abmeld-btn" id="abmeld-btn">Abmeldung absenden</button>
+      </form>
+      <div class="abmeld-ok" id="abmeld-ok">Deine Abmeldung ist eingegangen. Der Vorstand wird sie bestätigen.</div>
+      <div class="fehler-box" id="abmeld-err">Es ist ein Fehler aufgetreten. Bitte versuche es erneut oder wende dich direkt an den Vorstand.</div>
     </div>
   </div>
 
@@ -326,7 +481,7 @@ function sendeFormular(e) {
         <span>Stellvertretender Vorsitzender</span>
       </div>
       <hr class="trennlinie">
-      <p>E-Mail: <a href="/cdn-cgi/l/email-protection#39554f174a4c5c5d4e5c4a4d1f1a0f0d025d5151145c4f175d5c">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a></p>
+      <p>E-Mail: <a href="mailto:lv.suedwest&#64;dhh-ev.de">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a></p>
     </div>
 
     <div class="info-karte">
@@ -337,14 +492,14 @@ function sendeFormular(e) {
       Die Daten werden nach Abschluss der Veranstaltung gelöscht.</p>
       <p style="margin-top:8px;">Rechtsgrundlage der Verarbeitung ist deine freiwillige Einwilligung
       gemäss Art. 6 Abs. 1 lit. a DSGVO. Du kannst deine Anmeldung jederzeit per E-Mail an
-      <a href="/cdn-cgi/l/email-protection#c3afb5edb0b6a6a7b4a6b0b7e5e0f5f7f8a7ababeea6b5eda7a6">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a> widerrufen.
+      <a href="mailto:lv.suedwest&#64;dhh-ev.de">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a> widerrufen.
       Dir stehen ausserdem das Recht auf Auskunft, Berichtigung und Löschung
       deiner gespeicherten Daten zu.</p>
       <hr class="trennlinie">
       <p><strong style="color:var(--text);">Verantwortlich:</strong><br>
       Vorstand des DHH Landesverbands Südwest<br>
       Thomas Rauch (Vorsitzender)<br>
-      <a href="/cdn-cgi/l/email-protection#600c164e1315050417051314464356545b0408084d05164e0405">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a></p>
+      <a href="mailto:lv.suedwest&#64;dhh-ev.de">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a></p>
     </div>
 
     <div class="info-karte">
@@ -360,6 +515,15 @@ function sendeFormular(e) {
         77955 Ettenheim
       </p>
       <p style="margin-top:8px;">
-        E-Mail: <a href="/cdn-cgi/l/email-protection#d6baa0f8a5a3b3b2a1b3a5a2f0f5e0e2edb2bebefbb3a0f8b2b3">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a>
+        E-Mail: <a href="mailto:lv.suedwest&#64;dhh-ev.de">lv&#46;suedwest&#64;dhh&#45;ev&#46;de</a>
       </p>
-      <p style="margin-top:10px;font-size:12px;color:var(--text
+      <p style="margin-top:10px;font-size:12px;color:var(--text-hint);">
+        Diese Website ist nicht öffentlich zugänglich und richtet sich ausschliesslich
+        an Mitglieder des LV Südwest.
+      </p>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
